@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南台灣在地美食攻略</title>
+    
+    <!-- 引入 React 和 ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- 引入 Babel 用於解析 JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-800">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // 內嵌圖示組件 (取代 lucide-react 依賴，確保單一檔案可執行)
+        const MapPin = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+            </svg>
+        );
+
+        const Utensils = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                <path d="M7 2v20" />
+                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+            </svg>
+        );
+
+        const Star = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+        );
+
+        const FoodGuide = () => {
+            const [activeCity, setActiveCity] = useState('全部');
+
+            const foodData = [
+                {
+                    id: 1,
+                    city: '嘉義',
+                    name: '火雞肉飯',
+                    engName: 'Turkey Rice',
+                    tags: ['必吃', '米食', '香氣十足'],
+                    description: '嘉義的代名詞。不同於一般的雞絲飯，嘉義火雞肉飯使用的是肉質更具彈性與嚼勁的火雞肉。精髓在於淋在飯上的「雞油」與「油蔥酥」，鹹香的醬汁滲透每一粒白飯，搭配一片醃製黃蘿蔔，簡單卻令人回味無窮。',
+                    feature: '火雞肉多汁不乾柴，雞油香氣是靈魂。',
+                    color: 'from-orange-400 to-red-500',
+                    icon: '🍚'
+                },
+                {
+                    id: 2,
+                    city: '台南',
+                    name: '溫體牛肉湯',
+                    engName: 'Beef Soup',
+                    tags: ['早餐', '鮮甜', '排隊名店'],
+                    description: '台南人的霸氣早餐。最大特色在於使用當日現宰、未經冷凍的「溫體牛」。店家將生牛肉片放入碗中，直接沖入滾燙的高湯，肉片呈現粉嫩的五分熟，口感極致軟嫩，湯頭充滿牛肉的鮮甜，通常會搭配一碗肉燥飯食用。',
+                    feature: '粉紅色澤的肉片，建議沾一點薑絲與醬油膏食用。',
+                    color: 'from-red-500 to-rose-700',
+                    icon: '🥩'
+                },
+                {
+                    id: 3,
+                    city: '台南',
+                    name: '火燒蝦仁飯',
+                    engName: 'Shrimp Rice',
+                    tags: ['獨特', '海味', '鍋氣'],
+                    description: '這不是一般的炒飯，比較接近日式丼飯與燉飯的結合。使用高湯煨煮過的米飯，口感濕潤飽滿，再鋪上滿滿的「火燒蝦」。這種蝦雖然體型較小，但蝦味極其濃郁，經過大火快炒後帶有獨特的炭燒鍋氣。',
+                    feature: '米飯吸飽柴魚高湯精華，每一口都是濃濃海味。',
+                    color: 'from-orange-300 to-orange-500',
+                    icon: '🍤'
+                },
+                {
+                    id: 4,
+                    city: '高雄',
+                    name: '煙燻鴨肉飯',
+                    engName: 'Smoked Duck Rice',
+                    tags: ['老字號', '煙燻', '在地推薦'],
+                    description: '高雄鹽埕區與三民區的經典美味。選用肉質紮實的鴨肉進行煙燻處理，去骨切片後鋪在白飯上。最關鍵的是淋上店家特製的「鴨油醬汁」，香氣逼人，搭配爽口的薑片或醃黃瓜，是高雄人從小吃到大的味道。',
+                    feature: '煙燻香氣濃郁，鴨肉切片鋪滿整碗，CP值極高。',
+                    color: 'from-amber-500 to-yellow-600',
+                    icon: '🦆'
+                },
+                {
+                    id: 5,
+                    city: '高雄',
+                    name: '碳烤手工黑輪',
+                    engName: 'Grilled Oden (Tempura)',
+                    tags: ['下午茶', '銅板價', '酥脆'],
+                    description: '南部的黑輪(甜不辣)口感與北部截然不同。高雄流行「碳烤」吃法，手工製作的魚漿黑輪片，在炭火上烤到表面金黃微焦、外皮酥脆，內部依然軟Q。刷上甜鹹交織的醬料，並撒上花生粉，是高雄最具代表性的下午茶點心。',
+                    feature: '外酥內軟的口感，一定要撒上花生粉才對味。',
+                    color: 'from-brown-500 to-amber-700', // 使用 amber-700/orange-900 模擬
+                    icon: '🍢'
+                }
+            ];
+
+            const cities = ['全部', '嘉義', '台南', '高雄'];
+
+            const filteredFood = activeCity === '全部' 
+                ? foodData 
+                : foodData.filter(item => item.city === activeCity);
+
+            return (
+                <div className="min-h-screen bg-stone-50 font-sans text-slate-800 pb-12">
+                    {/* Header Section */}
+                    <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white py-12 px-4 shadow-lg">
+                        <div className="max-w-4xl mx-auto text-center">
+                            <h1 className="text-4xl font-bold mb-4 tracking-wide">南台灣在地美食攻略</h1>
+                            <p className="text-lg opacity-90">嚴選 5 道嘉義、台南、高雄必吃經典，帶你的味蕾去旅行</p>
+                        </div>
+                    </div>
+
+                    {/* Main Content */}
+                    <div className="max-w-5xl mx-auto px-4 py-8">
+                        
+                        {/* City Filter */}
+                        <div className="flex justify-center gap-2 mb-10 flex-wrap">
+                            {cities.map(city => (
+                                <button
+                                    key={city}
+                                    onClick={() => setActiveCity(city)}
+                                    className={`px-6 py-2 rounded-full transition-all duration-300 font-medium ${
+                                        activeCity === city
+                                            ? 'bg-orange-600 text-white shadow-md transform scale-105'
+                                            : 'bg-white text-slate-600 hover:bg-orange-100 border border-slate-200'
+                                    }`}
+                                >
+                                    {city}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Food Cards Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {filteredFood.map((item) => (
+                                <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full group">
+                                    
+                                    {/* Visual Header / Image Placeholder */}
+                                    <div className={`h-48 relative bg-gradient-to-br ${item.name === '碳烤手工黑輪' ? 'from-amber-700 to-orange-900' : item.color} flex items-center justify-center overflow-hidden`}>
+                                        <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-0 transition-opacity duration-500"></div>
+                                        <div className="text-8xl transform group-hover:scale-110 transition-transform duration-500 drop-shadow-md select-none cursor-default">
+                                            {item.icon}
+                                        </div>
+                                        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-700 flex items-center gap-1 shadow-sm">
+                                            <MapPin size={12} />
+                                            {item.city}
+                                        </div>
+                                    </div>
+
+                                    {/* Content Body */}
+                                    <div className="p-6 flex-1 flex flex-col">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h3 className="text-2xl font-bold text-slate-800 group-hover:text-orange-600 transition-colors">
+                                                    {item.name}
+                                                </h3>
+                                                <span className="text-xs text-slate-400 font-medium tracking-wider uppercase">{item.engName}</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Tags */}
+                                        <div className="flex flex-wrap gap-2 mb-4 mt-2">
+                                            {item.tags.map((tag, idx) => (
+                                                <span key={idx} className="text-xs px-2 py-1 bg-orange-50 text-orange-600 rounded-md font-medium border border-orange-100">
+                                                    #{tag}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1 text-justify">
+                                            {item.description}
+                                        </p>
+
+                                        {/* Feature Highlight Box */}
+                                        <div className="bg-slate-50 p-3 rounded-lg border-l-4 border-orange-500 mt-auto">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <Star size={14} className="text-orange-500 fill-orange-500" />
+                                                <span className="text-xs font-bold text-slate-700">老饕重點</span>
+                                            </div>
+                                            <p className="text-xs text-slate-600">
+                                                {item.feature}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        {/* Footer info */}
+                        <div className="mt-12 text-center text-slate-400 text-sm">
+                            <p className="flex items-center justify-center gap-2">
+                                <Utensils size={16} />
+                                探索更多南台灣美味，建議親自前往品嚐！
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<FoodGuide />);
+    </script>
+</body>
+</html>
