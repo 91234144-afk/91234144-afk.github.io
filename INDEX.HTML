@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高雄在地美食與學習成果網 - 吳娣芝</title>
+    <style>
+        body {
+            font-family: "微軟正黑體", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        /* 新增：學生個人資訊樣式 */
+        .student-info {
+            text-align: center;
+            background-color: #dfe6e9;
+            color: #2d3436;
+            padding: 15px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+        .student-info span {
+            margin: 0 15px;
+            display: inline-block;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .food-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+        .card h2 {
+            margin: 15px 0 10px;
+            color: #e67e22;
+        }
+        .card.reflection h2 {
+            color: #2980b9;
+        }
+        .card p {
+            padding: 0 15px 15px;
+            font-size: 0.9em;
+            color: #666;
+            flex-grow: 1;
+        }
+        .card a {
+            display: block;
+            padding: 10px;
+            background-color: #e67e22;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .card.reflection a {
+            background-color: #2980b9;
+        }
+        .card a:hover {
+            opacity: 0.9;
+        }
+        .detail-section {
+            background: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            scroll-margin-top: 20px;
+        }
+        .detail-section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 10px;
+        }
+        .detail-section.reflection-detail h2 {
+            border-bottom-color: #2980b9;
+        }
+        .detail-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px auto;
+            display: block;
+        }
+        .detail-section h3 {
+            color: #d35400;
+            margin-top: 25px;
+        }
+        .back-to-top {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-to-top:hover {
+            text-decoration: underline;
+        }
+        .reflection-content {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #444;
+            background-color: #f9fbfd;
+            padding: 20px;
+            border-left: 5px solid #2980b9;
+            margin-top: 20px;
+        }
+        /* RWD 手機版調整：讓資訊欄位垂直排列 */
+        @media (max-width: 600px) {
+            .student-info span {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>高雄在地美食與學習成果網</h1>
+
+        <div class="student-info">
+            <span>班級：進餐三甲</span>
+            <span>姓名：吳娣芝</span>
+            <span>學號：91234144</span>
+        </div>
+
+        <div class="food-list">
+            <div class="card">
+                <img src="sheep1.jpg" alt="岡山羊肉爐">
+                <h2>岡山羊肉爐</h2>
+                <p>以在地優質羊肉和獨門中藥湯底聞名，溫補暖身。</p>
+                <a href="#gangshan-mutton">查看詳情</a>
+            </div>
+            <div class="card">
+                <img src="banana1.jpg" alt="旗山香蕉蛋糕">
+                <h2>旗山香蕉蛋糕</h2>
+                <p>口感綿密濕潤，散發濃郁天然蕉香的在地甜點。</p>
+                <a href="#qishan-banana-cake">查看詳情</a>
+            </div>
+            <div class="card">
+                <img src="beef1.jpg" alt="左營牛肉麵">
+                <h2>左營牛肉麵</h2>
+                <p>源自眷村的經典，湯濃肉大塊，充滿歷史情感。</p>
+                <a href="#zuoying-beef-noodle">查看詳情</a>
+            </div>
+            <div class="card">
+                <img src="fish1.jpg" alt="鹽埕區虱目魚粥">
+                <h2>鹽埕區虱目魚粥</h2>
+                <p>湯頭鮮甜，魚肉細緻，高雄人的活力早餐。</p>
+                <a href="#yancheng-milkfish-congee">查看詳情</a>
+            </div>
+            <div class="card">
+                <img src="haka1.jpg" alt="美濃客家粄條">
+                <h2>美濃客家粄條</h2>
+                <p>口感Q彈滑順，搭配特製油蔥酥，香氣四溢。</p>
+                <a href="#meinong-hakka-noodles">查看詳情</a>
+            </div>
+            <div class="card reflection">
+                <img src="book.jpg" alt="心得報告圖示" style="object-fit: contain; padding: 20px; box-sizing: border-box;">
+                <h2>期末心得報告</h2>
+                <p>網際網路與 AI 應用課程的學習反思與收穫。</p>
+                <a href="#reflection-report">閱讀心得</a>
+            </div>
+        </div>
+
+        <div id="gangshan-mutton" class="detail-section">
+            <h2>岡山羊肉爐</h2>
+            <img src="sheep2.jpg" alt="岡山羊肉爐">
+            <h3>典故</h3>
+            <p>岡山地區早期是羊隻集散地，加上在地有製作豆瓣醬的傳統，兩者結合發展出獨特的羊肉料理文化。羊肉爐更是其中的佼佼者，從早期的路邊攤發展到如今的專賣店林立，成為岡山最著名的代名詞。</p>
+            <h3>做法</h3>
+            <p>選用在地土羊肉，切塊後先以麻油、薑片爆炒去腥，再加入多種中藥材（如當歸、川芎、枸杞等）和特製豆瓣醬慢火燉煮數小時，直到羊肉軟嫩入味，湯頭濃郁甘甜。食用時可加入高麗菜、凍豆腐等配料，風味更佳。</p>
+            <a href="#" class="back-to-top">回到頂部</a>
+        </div>
+
+        <div id="qishan-banana-cake" class="detail-section">
+            <h2>旗山香蕉蛋糕</h2>
+            <img src="banana2.jpg" alt="旗山香蕉蛋糕">
+            <h3>典故</h3>
+            <p>旗山曾有「香蕉王國」的美譽，香蕉產量豐富且品質優良。為了將過剩或外觀不佳但風味絕佳的香蕉做最有效的利用，當地的烘焙業者研發出了香蕉蛋糕，不僅解決了產銷問題，也創造出了具地方特色的甜點。</p>
+            <h3>做法</h3>
+            <p>將熟透的旗山香蕉去皮後壓成泥，加入麵粉、雞蛋、糖、植物油等材料充分混合攪拌成麵糊。將麵糊倒入模具中，放入烤箱以適當溫度烘烤至表面金黃、內部熟透即可。成品的蛋糕體充滿了香蕉的自然香氣和甜味，口感綿密。</p>
+            <a href="#" class="back-to-top">回到頂部</a>
+        </div>
+
+        <div id="zuoying-beef-noodle" class="detail-section">
+            <h2>左營牛肉麵</h2>
+            <img src="beef2.jpg" alt="左營牛肉麵">
+            <h3>典故</h3>
+            <p>1949年後，大量國軍眷屬遷居至高雄左營的眷村。來自中國各地的軍眷將家鄉的麵食文化帶入，結合了四川的豆瓣醬、山東的麵條等元素，逐漸演變成獨具風味的台灣牛肉麵。左營眷村也因此成為牛肉麵的重鎮。</p>
+            <h3>做法</h3>
+            <p>湯頭通常以牛骨、多種辛香料（如花椒、八角）、豆瓣醬長時間熬煮而成，分為紅燒和清燉兩種主要口味。牛肉則選用牛腱或牛肋條，滷製到軟嫩適中。最後將煮好的麵條放入碗中，加入牛肉和熱騰騰的湯頭，撒上蔥花或香菜即可。</p>
+            <a href="#" class="back-to-top">回到頂部</a>
+        </div>
+
+        <div id="yancheng-milkfish-congee" class="detail-section">
+            <h2>鹽埕區虱目魚粥</h2>
+            <img src="fish2.jpg" alt="鹽埕區虱目魚粥">
+            <h3>典故</h3>
+            <p>鹽埕區早期是高雄的商業中心，鄰近港口，漁獲資源豐富。虱目魚是南台灣重要的養殖魚類，因其營養價值高且價格親民，成為常民美食。當地的虱目魚粥店多半從清晨開始營業，為早起的工人和居民提供溫熱、營養的早餐。</p>
+            <h3>做法</h3>
+            <p>將新鮮虱目魚去鱗、去內臟後，取下魚肉、魚肚、魚皮等部位。魚骨用來熬煮高湯，米飯則加入高湯中煮成粥。顧客點餐後，將魚肉、蚵仔等配料放入粥中快速燙熟，起鍋前加入薑絲、芹菜珠、胡椒粉提味，並淋上一點香油。</p>
+            <a href="#" class="back-to-top">回到頂部</a>
+        </div>
+
+        <div id="meinong-hakka-noodles" class="detail-section">
+            <h2>美濃客家粄條</h2>
+            <img src="haka2.jpg" alt="美濃客家粄條">
+            <h3>典故</h3>
+            <p>「粄條」是客家人的傳統主食之一，在美濃地區尤其盛行。早期農耕社會，客家人為了方便保存和攜帶食物，將米磨成漿後蒸熟切條，稱為「面帕粄」。其獨特的口感和百搭的特性，使其成為客家飲食文化的重要代表。</p>
+            <h3>做法</h3>
+            <p>將在來米浸泡後磨成米漿，薄薄一層倒入平底鍋或蒸籠中蒸熟，取出後折疊切成條狀。食用方式多樣，可做成湯粄條或乾炒粄條。乾炒粄條是將粄條與豬肉絲、豆芽菜、韭菜等配料，加入豬油和特製的紅蔥頭酥一起大火快炒，香氣撲鼻。</p>
+            <a href="#" class="back-to-top">回到頂部</a>
+        </div>
+
+        <div id="reflection-report" class="detail-section reflection-detail">
+            <h2>網際網路與 AI 應用 - 課程心得報告</h2>
+            <div class="reflection-content">
+                <p>在「網際網路與 AI 應用」這門課中，我學習到如何利用 AI 工具協助建立網站。一開始操作時覺得有點困難，對於指令與流程不太熟悉，但在不斷嘗試後，逐漸了解 AI 能加快網站設計的速度，也能提供許多創意建議。雖然過程具有挑戰性，但整體來說非常有趣，也讓我對未來應用 AI 更有信心。</p>
+            </div>
+            <a href="#" class="back-to-top">回到頂部</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
